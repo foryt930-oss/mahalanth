@@ -23,6 +23,10 @@ jobs:
           curl -L -f -o www/three.min.js https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js
       - run: npm install
       - run: npx cap add android
+      - name: Lock landscape
+        run: |
+          sed -i 's|android:name=".MainActivity"|android:name=".MainActivity" android:screenOrientation="sensorLandscape"|' android/app/src/main/AndroidManifest.xml
+          grep -q 'sensorLandscape' android/app/src/main/AndroidManifest.xml
       - run: npx cap sync android
       - name: Build debug APK
         run: |
